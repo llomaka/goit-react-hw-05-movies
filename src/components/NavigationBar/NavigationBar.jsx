@@ -13,15 +13,11 @@ export default function NavigationBar() {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <ul className={styles.list}>
-          <li>
-            <a href="#" id='home' className={styles.link} style={homeStyle} onClick={menuClick}>
+          <li id='home' className={styles.item} style={homeStyle} onClick={menuClick}>
               Home
-            </a>
           </li>
-          <li>
-            <a href="#" id='movies'  className={styles.link} style={moviesStyle} onClick={menuClick}>
+          <li id='movies'  className={styles.item} style={moviesStyle} onClick={menuClick}>
               Movies
-            </a>
           </li>
         </ul>
       </nav>

@@ -19,6 +19,10 @@
   list-style: none;
 }
 
-.link {
+.item {
   color: #2A9DFD;
+}
+
+.item:hover {
+  cursor: pointer;
 }
