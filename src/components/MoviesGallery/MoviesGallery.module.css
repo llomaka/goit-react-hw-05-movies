@@ -1,0 +1,15 @@
+.list {
+  padding: 20px 0 20px 40px;
+  list-style-type: square;
+}
+
+.item {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.item:hover {
+  color: #BE681F;
+  cursor: pointer;
+}

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const API_KEY = 'fdf0e898687a376156944fbb1ab25196';
 // Запит трендових фільмів
-export async function fetchTrending(page = 1, media_type = 'movie', time_window = 'day') {
+export async function fetchTrendingMovies(page = 1, media_type = 'movie', time_window = 'day') {
   const { data } = await axios(`https://api.themoviedb.org/3/trending/${media_type}/${time_window}?api_key=${API_KEY}&page=${page}`);
   return data;
 }
