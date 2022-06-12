@@ -45,6 +45,11 @@ export const App = () => {
     return true;
   }
 
+  function errorHandling(error) {
+    setError(error.message);
+    setState('rejected');
+  }
+
   return (
     <div
       style={{
@@ -57,7 +62,7 @@ export const App = () => {
       <Container>
         {state === 'rejected' && <p>Error getting information from server: {error}</p>}
         {state === 'resolved' && movies.length > 0 && isObjectEmpty(movie) && <MoviesGallery movies={movies} handleClick={trendingMovieClick} />}
-        {!isObjectEmpty(movie) && <MovieDetails {...movie} />}
+        {!isObjectEmpty(movie) && <MovieDetails {...movie} isObjectEmpty={isObjectEmpty} errorHandling={errorHandling} />}
       </Container>
       <ToastContainer />
     </div>

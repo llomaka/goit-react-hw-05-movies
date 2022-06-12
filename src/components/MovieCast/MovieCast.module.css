@@ -1,0 +1,11 @@
+.list {
+  padding: 20px 0;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+.item {
+  flex-basis: calc((100% - (5 * 20px)) / 6);
+}

@@ -1,13 +1,41 @@
 import emptyPoster from './no-poster.svg';
 import styles from './MovieDetails.module.css';
+import { fetchCreditsByMovieId, fetchReviewsByMovieId } from 'service/api';
+import { useState } from 'react';
+import MovieCast from 'components/MovieCast';
+import MovieReviews from 'components/MovieReviews';
 
-export default function MovieDetails({ id, poster_path, title, release_date, vote_average, overview, genres }) {
+export default function MovieDetails({ id, poster_path, title, release_date, vote_average, overview, genres, isObjectEmpty, errorHandling }) {
+  const [cast, setCast] = useState({});
+  const [reviews, setReviews] = useState({});
+
   const genre = genres.length > 0 ? genres.map(genre => genre.name).join(', ') : 'No Genres Available';
+
+  function handleClick(event, id) {
+    if (event.target.innerHTML === 'Cast') {
+      fetchCreditsByMovieId(id)
+        .then(data => {
+          setCast(data.cast);
+          setReviews({});
+        })
+        .catch(error=>errorHandling(error))
+    }
+    else {
+      fetchReviewsByMovieId(id)
+        .then(data => {
+          setReviews(data);
+          setCast({});
+        })
+        .catch(error=>errorHandling(error))
+    }
+  }
+
   return (
     <section className={styles.section}>
       <div className={styles.card}>
         <img
-          src={poster_path ? `https://image.tmdb.org/t/p/w185${poster_path}` : emptyPoster}
+          className={styles.image}
+          src={poster_path ? `https://image.tmdb.org/t/p/w342${poster_path}` : emptyPoster}
           alt={`${title} Poster`}
           loading="lazy"
         />
@@ -23,44 +51,13 @@ export default function MovieDetails({ id, poster_path, title, release_date, vot
       <div className={styles.aside}>
         <h2 className={styles.aside_title}>Additional information</h2>
         <ul className={styles.list}>
-          <li className={styles.item}>Cast</li>
-          <li className={styles.item}>Reviews</li>
+          <li className={styles.item} onClick={(event) => handleClick(event, id)}>Cast</li>
+          <li className={styles.item} onClick={(event) => handleClick(event, id)}>Reviews</li>
         </ul>
       </div>
+      {!isObjectEmpty(cast) && <MovieCast cast={cast} />}
+      {!isObjectEmpty(reviews) && reviews.total_results > 0 && <MovieReviews reviews={reviews.results} />}
+      {!isObjectEmpty(reviews) && reviews.total_results === 0 && <p>No reviews for movie {title} at this time.</p>}
     </section>
   );
 }
-
-// https://image.tmdb.org/t/p/w342
-//  const markup = `<div class="film__card" data-index-number="${film.id}">
-//       <img
-//         srcset="https://image.tmdb.org/t/p/w342${film.poster_path} 342w, https://image.tmdb.org/t/p/w500${film.poster_path} 500w"
-//         sizes="(max-width: 1023px) 342px, 500px"
-//         src="https://image.tmdb.org/t/p/w500${film.poster_path}"
-//         alt="${film.title} Poster"
-//         loading="lazy"
-//       />
-//     <div class="film__caption">
-//       <h2 class="film__title">${film.title}</h2>
-//         <ul class="film__list">
-//           <li class="film__item">
-//             <p class="film__item-caption">Vote / Votes</p>
-//             <p class="film__rating"><span class="film__vote">${film.vote_average}</span> / <span class="film__votes">${film.vote_count}</span></p>
-//           </li>
-//           <li class="film__item">
-//             <p class="film__item-caption">Popularity</p>
-//             <p class="film__popularity">${popularity}</p>
-//           </li>
-//           <li class="film__item">
-//             <p class="film__item-caption">Original Title</p>
-//             <p class="film__original-title">${film.original_title}</p>
-//           </li>
-//           <li class="film__item">
-//             <p class="film__item-caption">Genre</p>
-//             <p class="film__genre">${genre}</p>
-//           </li>
-//         </ul>
-//         <p class="film__about-caption">About</p>
-//         <p class="film__about">${film.overview}</p>
-//       </div>
-//     </div>`;
