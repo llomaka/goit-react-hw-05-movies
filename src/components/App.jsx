@@ -4,9 +4,10 @@ import Container from './Container';
 import Loader from 'components/Loader';
 import NavigationBar from "./NavigationBar";
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import MoviesGallery from "./MoviesGallery";
 import MovieDetails from './MovieDetails';
+// import Searchbar from './Searchbar';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const App = () => {
   const [state, setState] = useState('idle');
@@ -58,6 +59,7 @@ export const App = () => {
       }}
     >
       <NavigationBar />
+      {/* <Searchbar /> */}
       {state === 'pending' && <Loader />}
       <Container>
         {state === 'rejected' && <p>Error getting information from server: {error}</p>}

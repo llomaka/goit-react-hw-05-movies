@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import empty_picture from './no-image.svg';
 import styles from './MovieCastItem.module.css';
 
@@ -15,3 +16,10 @@ export default function MovieCastItem({ id, character, name, profile_path }) {
       </>
   );
 }
+
+MovieCastItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  character: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  profile_path: PropTypes.string,
+};

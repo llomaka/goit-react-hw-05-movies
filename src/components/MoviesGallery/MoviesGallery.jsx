@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './MoviesGallery.module.css';
 
 export default function MoviesGallery({ movies, handleClick }) {
@@ -15,3 +16,13 @@ export default function MoviesGallery({ movies, handleClick }) {
     </ul>
   );
 }
+
+MoviesGallery.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ),
+  handleClick: PropTypes.func.isRequired
+};

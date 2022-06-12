@@ -4,6 +4,7 @@ import { fetchCreditsByMovieId, fetchReviewsByMovieId } from 'service/api';
 import { useState } from 'react';
 import MovieCast from 'components/MovieCast';
 import MovieReviews from 'components/MovieReviews';
+import PropTypes from 'prop-types';
 
 export default function MovieDetails({ id, poster_path, title, release_date, vote_average, overview, genres, isObjectEmpty, errorHandling }) {
   const [cast, setCast] = useState({});
@@ -61,3 +62,20 @@ export default function MovieDetails({ id, poster_path, title, release_date, vot
     </section>
   );
 }
+
+MovieDetails.propTypes = {
+  id: PropTypes.number.isRequired,
+  poster_path: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  release_date: PropTypes.string,
+  vote_average: PropTypes.number,
+  overview: PropTypes.string,
+  genres: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    })
+  ),
+  isObjectEmpty: PropTypes.func.isRequired,
+  errorHandling: PropTypes.func.isRequired,
+};

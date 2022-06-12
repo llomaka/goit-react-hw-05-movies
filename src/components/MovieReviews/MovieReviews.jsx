@@ -1,4 +1,5 @@
 import MovieReviewsItem from 'components/MovieReviewsItem';
+import PropTypes from 'prop-types';
 import styles from './MovieReviews.module.css';
 
 export default function MovieReviews({ reviews }) {
@@ -12,3 +13,15 @@ export default function MovieReviews({ reviews }) {
     </ol>
   );
 }
+
+MovieReviews.propTypes = {
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      created_at: PropTypes.string.isRequired,
+      updated_at: PropTypes.string.isRequired,
+    })
+  )
+};
