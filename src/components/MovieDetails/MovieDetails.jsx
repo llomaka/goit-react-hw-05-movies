@@ -4,9 +4,10 @@ import { fetchCreditsByMovieId, fetchReviewsByMovieId } from 'service/api';
 import { useState } from 'react';
 import MovieCast from 'components/MovieCast';
 import MovieReviews from 'components/MovieReviews';
+import isObjectEmpty from 'helpers/isObjectEmpty';
 import PropTypes from 'prop-types';
 
-export default function MovieDetails({ id, poster_path, title, release_date, vote_average, overview, genres, isObjectEmpty, errorHandling }) {
+export default function MovieDetails({ id, poster_path, title, release_date, vote_average, overview, genres, errorHandling }) {
   const [cast, setCast] = useState({});
   const [reviews, setReviews] = useState({});
 
@@ -56,9 +57,10 @@ export default function MovieDetails({ id, poster_path, title, release_date, vot
           <li className={styles.item} onClick={(event) => handleClick(event, id)}>Reviews</li>
         </ul>
       </div>
-      {!isObjectEmpty(cast) && <MovieCast cast={cast} />}
+      {cast.length > 0 && <MovieCast cast={cast} />}
+      {cast.length === 0 && <p>No cast available for movie {title} at this time.</p>}
       {!isObjectEmpty(reviews) && reviews.total_results > 0 && <MovieReviews reviews={reviews.results} />}
-      {!isObjectEmpty(reviews) && reviews.total_results === 0 && <p>No reviews for movie {title} at this time.</p>}
+      {!isObjectEmpty(reviews) && reviews.total_results === 0 && <p>No reviews available for movie {title} at this time.</p>}
     </section>
   );
 }
@@ -76,6 +78,5 @@ MovieDetails.propTypes = {
       name: PropTypes.string,
     })
   ),
-  isObjectEmpty: PropTypes.func.isRequired,
   errorHandling: PropTypes.func.isRequired,
 };

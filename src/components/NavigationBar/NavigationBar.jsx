@@ -5,8 +5,8 @@ export default function NavigationBar() {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <NavLink exact to='/' className={styles.link} activeClassName={styles.active_link}>Home</NavLink>
-        <NavLink to='/movies'  className={styles.link} activeClassName={styles.active_link}>Movies</NavLink>
+        <NavLink to='/goit-react-hw-05-movies/' className={({ isActive }) => isActive ? styles.orange : styles.blue}>Home</NavLink>
+        <NavLink to='/goit-react-hw-05-movies/movies' className={({ isActive }) => isActive ? styles.orange : styles.blue}>Movies</NavLink>
       </nav>
     </header>
   )

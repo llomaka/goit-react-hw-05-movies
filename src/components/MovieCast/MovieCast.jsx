@@ -20,7 +20,7 @@ MovieCast.propTypes = {
       id: PropTypes.number.isRequired,
       character: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      profile_path: PropTypes.string.isRequired,
+      profile_path: PropTypes.string,
     })
   )
 };

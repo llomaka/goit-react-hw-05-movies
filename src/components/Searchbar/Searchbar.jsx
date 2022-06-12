@@ -17,7 +17,7 @@ export default function Searchbar({ onSearchClick }) {
   };
 
   return (
-    <div className={styles.header}>
+    <div className={styles.overlay}>
       <form
         className={styles.form}
         onSubmit={onSubmit}
