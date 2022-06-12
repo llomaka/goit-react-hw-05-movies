@@ -8,6 +8,7 @@ export default function Loader() {
       color='#490D9A'
       thickness='150'
       style={{
+        display: 'block',
         marginLeft: 'auto',
         marginRight: 'auto'
       }}

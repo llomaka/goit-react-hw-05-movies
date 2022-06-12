@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
-import { fetchTrendingMovies } from 'service/api';
+import { fetchMovieById, fetchTrendingMovies } from 'service/api';
 import Container from './Container';
 import Loader from 'components/Loader';
 import NavigationBar from "./NavigationBar";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MoviesGallery from "./MoviesGallery";
+import MovieDetails from './MovieDetails';
 
 export const App = () => {
   const [state, setState] = useState('idle');
   const [movies, setMovies] = useState([]);
+  const [movie, setMovie] = useState({});
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -31,7 +33,16 @@ export const App = () => {
   }, []);
 
   function trendingMovieClick(id) {
-    console.log(id);
+    fetchMovieById(id)
+      .then(data => setMovie(data))
+      .catch(error=> setError(error.message))
+  }
+
+  function isObjectEmpty(obj) {
+    for (const name in obj) {
+        if (obj.hasOwnProperty(name)) return false;
+    }
+    return true;
   }
 
   return (
@@ -42,10 +53,11 @@ export const App = () => {
       }}
     >
       <NavigationBar />
+      {state === 'pending' && <Loader />}
       <Container>
-        {state === 'pending' && <Loader />}
         {state === 'rejected' && <p>Error getting information from server: {error}</p>}
-        {state === 'resolved' && movies.length > 0 && <MoviesGallery movies={movies} handleClick={trendingMovieClick} />}
+        {state === 'resolved' && movies.length > 0 && isObjectEmpty(movie) && <MoviesGallery movies={movies} handleClick={trendingMovieClick} />}
+        {!isObjectEmpty(movie) && <MovieDetails {...movie} />}
       </Container>
       <ToastContainer />
     </div>

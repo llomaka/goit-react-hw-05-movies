@@ -1,6 +1,7 @@
 .list {
   padding: 20px 0 20px 40px;
   list-style-type: square;
+  text-decoration: underline;
 }
 
 .item {

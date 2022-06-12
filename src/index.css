@@ -16,9 +16,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 20px;
+  font-weight: 400;
 }
-
-/* font-family: 'Luckiest Guy', cursive; */
 
 img {
   display: block;
