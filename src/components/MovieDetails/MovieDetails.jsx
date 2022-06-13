@@ -6,10 +6,24 @@ import MovieCast from 'components/MovieCast';
 import MovieReviews from 'components/MovieReviews';
 import isObjectEmpty from 'helpers/isObjectEmpty';
 import PropTypes from 'prop-types';
+import { RemoveScroll } from 'react-remove-scroll';
+import Modal from 'components/Modal';
 
 export default function MovieDetails({ id, poster_path, title, release_date, vote_average, overview, genres, errorHandling }) {
   const [cast, setCast] = useState({});
   const [reviews, setReviews] = useState({});
+  const [posterPath, setPosterPath] = useState(null);
+  const [altCaption, setAltCaption] = useState(null);
+
+  function closeModal() {
+    setPosterPath(null);
+    setAltCaption(null);
+  };
+
+  function selectImage(poster_path, title) {
+    setPosterPath(poster_path);
+    setAltCaption(title);
+  };
 
   const genre = genres.length > 0 ? genres.map(genre => genre.name).join(', ') : 'No Genres Available';
 
@@ -40,6 +54,7 @@ export default function MovieDetails({ id, poster_path, title, release_date, vot
           src={poster_path ? `https://image.tmdb.org/t/p/w342${poster_path}` : emptyPoster}
           alt={`${title} Poster`}
           loading="lazy"
+          onClick={()=>selectImage(`https://image.tmdb.org/t/p/original${poster_path}`, title)}
         />
         <div className={styles.caption}>
           <h2 className={styles.title}>{title} ({release_date ? release_date.slice(0, 4) : 'No Release Year Available'})</h2>
@@ -61,6 +76,13 @@ export default function MovieDetails({ id, poster_path, title, release_date, vot
       {cast.length === 0 && <p>No cast available for movie {title} at this time.</p>}
       {!isObjectEmpty(reviews) && reviews.total_results > 0 && <MovieReviews reviews={reviews.results} />}
       {!isObjectEmpty(reviews) && reviews.total_results === 0 && <p>No reviews available for movie {title} at this time.</p>}
+      {posterPath && poster_path && <RemoveScroll>
+        <Modal
+          posterPath={posterPath}
+          tags={altCaption}
+          closeModal={closeModal}
+        />
+      </RemoveScroll>}
     </section>
   );
 }

@@ -5,7 +5,7 @@ import styles from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export default function Modal({ largeImageURL, tags, closeModal }) {
+export default function Modal({ posterPath, altCaption, closeModal }) {
   const handleBackdropClick = event => {
     if (event.target === event.currentTarget) {
       closeModal();
@@ -26,8 +26,8 @@ export default function Modal({ largeImageURL, tags, closeModal }) {
     <div className={styles.backdrop} onClick={handleBackdropClick}>
       <div className={styles.modal}>
         <img
-          src={largeImageURL}
-          alt={tags}
+          src={posterPath}
+          alt={altCaption}
         />
       </div>
     </div>,
@@ -36,7 +36,7 @@ export default function Modal({ largeImageURL, tags, closeModal }) {
 }
 
 Modal.propTypes = {
-  largeImageURL: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
+  posterPath: PropTypes.string.isRequired,
+  altCaption: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
 };

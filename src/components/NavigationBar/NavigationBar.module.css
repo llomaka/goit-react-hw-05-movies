@@ -2,13 +2,16 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0 10px;
+}
+
 .nav {
   display: flex;
   gap: 15px;
   align-items: center;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 15px 15px 10px;
   font-family: 'Luckiest Guy', cursive;
   font-size: 30px;
   line-height: 1.5;
@@ -20,4 +23,8 @@
 
 .orange {
   color: #FD8A2A;
+}
+
+.link {
+  width: 500px;
 }
