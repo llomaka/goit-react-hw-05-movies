@@ -11,15 +11,18 @@ export default function HomePage() {
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState({});
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(1);
 
   useEffect(() => {
     setStatus('pending');
-    fetchTrendingMovies()
+    fetchTrendingMovies(page)
       .then(data => {
         if (data.total_results === 0) {
           return toast.warning('Found 0 trending movies! Please, try again later.');
         } else {
           setMovies(data.results);
+          setPageCount(data.total_pages)
           setStatus('resolved');
         }
       })
@@ -28,7 +31,7 @@ export default function HomePage() {
         setError(error.message);
         setStatus('rejected');
       });
-  }, []);
+  }, [page]);
 
   function errorHandling(error) {
     setError(error.message);
@@ -41,11 +44,31 @@ export default function HomePage() {
       .catch(error=> setError(error.message))
   }
 
+  function onPageClick(pageNum) {
+    setPage(pageNum);
+  }
+
+  function onPrevPageClick() {
+    setPage(prevPage => prevPage - 1);
+  }
+
+  function onNextPageClick() {
+    setPage(prevPage => prevPage + 1);
+  }
+
   return (
     <>
       {status === 'pending' && <Loader />}
       {status === 'rejected' && <h2>Error getting information from server: {error}</h2>}
-      {status === 'resolved' && movies.length > 0 && isObjectEmpty(movie) && <MoviesGallery movies={movies} handleClick={trendingMovieClick} />}
+      {status === 'resolved' && movies.length > 0 && isObjectEmpty(movie) && <MoviesGallery
+        movies={movies}
+        handleClick={trendingMovieClick}
+        page={page}
+        pageCount={pageCount}
+        onPageClick={onPageClick}
+        onPrevPageClick={onPrevPageClick}
+        onNextPageClick={onNextPageClick}
+      />}
       {!isObjectEmpty(movie) && <MovieDetails {...movie} errorHandling={errorHandling} />}
     </>
   );

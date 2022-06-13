@@ -13,6 +13,8 @@ export default function MoviesPage() {
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState({});
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(1);
 
   function onSearchClick(searchQuery) {
     if (query.toLowerCase() === searchQuery.toLowerCase()) return;
@@ -26,10 +28,13 @@ export default function MoviesPage() {
     setStatus('pending');
     fetchMoviesByQuery(query)
       .then(data => {
-          if (data.total_results === 0) {
-            return toast.warning('Found 0 trending movies! Please, try again later.');
+        if (data.total_results === 0) {
+            setError('Found 0 movies! Please, change search query.');
+            setStatus('rejected');
+            return toast.warning('Found 0 movies! Please, change search query.');
           } else {
             setMovies(data.results);
+            setPageCount(data.total_pages)
             setStatus('resolved');
           }
         })
@@ -51,12 +56,33 @@ export default function MoviesPage() {
       .catch(error=> setError(error.message))
   }
 
+  function onPageClick(pageNum) {
+    setPage(pageNum);
+  }
+
+  function onPrevPageClick() {
+    setPage(prevPage => prevPage - 1);
+  }
+
+  function onNextPageClick() {
+    setPage(prevPage => prevPage + 1);
+  }
+
+
   return (
     <>
       <Searchbar onSearchClick={onSearchClick} />
       {status === 'pending' && <Loader />}
       {status === 'rejected' && <h2>Error getting information from server: {error}</h2>}
-      {status === 'resolved' && movies.length > 0 && isObjectEmpty(movie) && <MoviesGallery movies={movies} handleClick={onMovieClick} />}
+      {status === 'resolved' && movies.length > 0 && isObjectEmpty(movie) && <MoviesGallery
+        movies={movies}
+        handleClick={onMovieClick}
+        page={page}
+        pageCount={pageCount}
+        onPageClick={onPageClick}
+        onPrevPageClick={onPrevPageClick}
+        onNextPageClick={onNextPageClick}
+      />}
       {!isObjectEmpty(movie) && <MovieDetails {...movie} errorHandling={errorHandling} />}
     </>
   );

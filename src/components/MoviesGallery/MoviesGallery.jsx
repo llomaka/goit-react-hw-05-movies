@@ -2,7 +2,11 @@ import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import styles from './MoviesGallery.module.css';
 
-export default function MoviesGallery({ movies, handleClick }) {
+export default function MoviesGallery({ movies, handleClick, page, pageCount, onPageClick, onPrevPageClick, onNextPageClick }) {
+  function handlePageClick(event) {
+    console.log(`User requested page number ${event.selected}`);
+  }
+
   return (
     <>
       <ul className={styles.list}>
@@ -16,12 +20,12 @@ export default function MoviesGallery({ movies, handleClick }) {
         </li>)
         )}
       </ul>
-      <ReactPaginate
+      {pageCount > 1 && <ReactPaginate
         breakLabel="..."
         nextLabel=">"
-        // onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        pageCount={1000}
+        onPageChange={handlePageClick}
+        // pageRangeDisplayed={3}
+        pageCount={pageCount}
         marginPagesDisplayed={2}
         previousLabel="<"
         renderOnZeroPageCount={null}
@@ -30,7 +34,7 @@ export default function MoviesGallery({ movies, handleClick }) {
         activeClassName={styles.pagination_active_item}
         previousClassName={styles.pagination_item}
         nextClassName={styles.pagination_item}
-      />
+      />}
     </>
   );
 }
