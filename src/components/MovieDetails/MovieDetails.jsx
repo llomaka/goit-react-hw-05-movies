@@ -13,7 +13,7 @@ import useModal from '../../hooks/useModal';
 export default function MovieDetails({ id, poster_path, title, release_date, vote_average, overview, genres, errorHandling }) {
   const [cast, setCast] = useState({});
   const [reviews, setReviews] = useState({});
-  const { posterPath, altCaption, closeModal, selectImage } = useModal(poster_path, title);
+  const { posterPath, altCaption, closeModal, selectImage } = useModal();
 
   const genre = genres.length > 0 ? genres.map(genre => genre.name).join(', ') : 'No Genres Available';
 

@@ -6,7 +6,7 @@ import useModal from '../../hooks/useModal';
 import styles from './MovieCastItem.module.css';
 
 export default function MovieCastItem({ id, character, name, profile_path }) {
-  const { posterPath, altCaption, closeModal, selectImage } = useModal(profile_path, name);
+  const { posterPath, altCaption, closeModal, selectImage } = useModal();
 
   return (
     <>

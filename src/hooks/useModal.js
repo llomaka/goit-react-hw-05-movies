@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 
-export default function useModal(src, alt) {
+export default function useModal() {
   const [posterPath, setPosterPath] = useState(null);
   const [altCaption, setAltCaption] = useState(null);
 
@@ -17,8 +16,3 @@ export default function useModal(src, alt) {
 
   return { posterPath, altCaption, closeModal, selectImage };
 }
-
-useModal.propTypes = {
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired
-};
