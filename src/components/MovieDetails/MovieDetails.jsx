@@ -8,22 +8,12 @@ import isObjectEmpty from 'helpers/isObjectEmpty';
 import PropTypes from 'prop-types';
 import { RemoveScroll } from 'react-remove-scroll';
 import Modal from 'components/Modal';
+import useModal from '../../hooks/useModal';
 
 export default function MovieDetails({ id, poster_path, title, release_date, vote_average, overview, genres, errorHandling }) {
   const [cast, setCast] = useState({});
   const [reviews, setReviews] = useState({});
-  const [posterPath, setPosterPath] = useState(null);
-  const [altCaption, setAltCaption] = useState(null);
-
-  function closeModal() {
-    setPosterPath(null);
-    setAltCaption(null);
-  };
-
-  function selectImage(poster_path, title) {
-    setPosterPath(poster_path);
-    setAltCaption(title);
-  };
+  const { posterPath, altCaption, closeModal, selectImage } = useModal(poster_path, title);
 
   const genre = genres.length > 0 ? genres.map(genre => genre.name).join(', ') : 'No Genres Available';
 

@@ -1,23 +1,12 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import empty_picture from './no-image.svg';
 import { RemoveScroll } from 'react-remove-scroll';
 import Modal from 'components/Modal';
+import useModal from '../../hooks/useModal';
 import styles from './MovieCastItem.module.css';
 
 export default function MovieCastItem({ id, character, name, profile_path }) {
-  const [posterPath, setPosterPath] = useState(null);
-  const [altCaption, setAltCaption] = useState(null);
-
-  function closeModal() {
-    setPosterPath(null);
-    setAltCaption(null);
-  };
-
-  function selectImage(poster_path, title) {
-    setPosterPath(poster_path);
-    setAltCaption(title);
-  };
+  const { posterPath, altCaption, closeModal, selectImage } = useModal(profile_path, name);
 
   return (
     <>
