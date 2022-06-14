@@ -22,7 +22,7 @@ export default function MovieCastItem({ id, character, name, profile_path }) {
       {posterPath && profile_path && <RemoveScroll>
         <Modal
           posterPath={posterPath}
-          tags={altCaption}
+          altCaption={altCaption}
           closeModal={closeModal}
         />
       </RemoveScroll>}

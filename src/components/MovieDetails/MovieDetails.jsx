@@ -69,7 +69,7 @@ export default function MovieDetails({ id, poster_path, title, release_date, vot
       {posterPath && poster_path && <RemoveScroll>
         <Modal
           posterPath={posterPath}
-          tags={altCaption}
+          altCaption={altCaption}
           closeModal={closeModal}
         />
       </RemoveScroll>}
