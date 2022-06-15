@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import styles from './MoviesGallery.module.css';
 
-export default function MoviesGallery({ movies, handleClick, page, pageCount, onPageClick, onPrevPageClick, onNextPageClick }) {
+export default function MoviesGallery({ movies, page, pageCount, onPageClick, onPrevPageClick, onNextPageClick }) {
   function handlePageClick(event) {
     console.log(`User requested page number ${event.selected}`);
   }
@@ -14,9 +15,10 @@ export default function MoviesGallery({ movies, handleClick, page, pageCount, on
         (<li
           key={id}
           className={styles.item}
-          onClick={() => handleClick(id)}
         >
-          {title}
+          <Link to={`/movies/${id}`} className={styles.link}>
+            {title}
+          </Link>
         </li>)
         )}
       </ul>
@@ -45,5 +47,4 @@ MoviesGallery.propTypes = {
       title: PropTypes.string.isRequired,
     })
   ),
-  handleClick: PropTypes.func.isRequired
 };

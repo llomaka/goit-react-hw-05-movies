@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import HomePage from 'pages/HomePage';
 import Container from './Container';
 import MoviesPage from 'pages/MoviesPage';
+import MovieDetailsPage from 'pages/MovieDetailsPage';
 
 export const App = () => {
   return (
@@ -16,8 +17,9 @@ export const App = () => {
       <NavigationBar />
       <Container>
         <Routes>
-          <Route path='/goit-react-hw-05-movies/' element={<HomePage />} />
-          <Route path='/goit-react-hw-05-movies/movies' element={<MoviesPage />} />
+          <Route path='/movies' element={<MoviesPage />} />
+          <Route path='/movies/:movieId/*' element={<MovieDetailsPage />} />
+          <Route path='*' element={<HomePage />} />
         </Routes>
       </Container>
       <ToastContainer />

@@ -1,27 +1,17 @@
 import Searchbar from 'components/Searchbar';
 import { useState, useEffect } from 'react';
-import { fetchMoviesByQuery, fetchMovieById } from 'service/api';
+import { fetchMoviesByQuery } from 'service/api';
 import { toast } from 'react-toastify';
 import Loader from 'components/Loader';
-import isObjectEmpty from 'helpers/isObjectEmpty';
 import MoviesGallery from 'components/MoviesGallery';
-import MovieDetails from 'components/MovieDetails';
 
 export default function MoviesPage() {
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('idle');
   const [movies, setMovies] = useState([]);
-  const [movie, setMovie] = useState({});
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
-
-  function onSearchClick(searchQuery) {
-    if (query.toLowerCase() === searchQuery.toLowerCase()) return;
-    setQuery(searchQuery);
-    setMovies([]);
-    setMovie([]);
-  }
 
   useEffect(() => {
     if (!query) return;
@@ -45,15 +35,10 @@ export default function MoviesPage() {
         });
     }, [query]);
 
-  function errorHandling(error) {
-    setError(error.message);
-    setStatus('rejected');
-  }
-
-  function onMovieClick(id) {
-    fetchMovieById(id)
-      .then(data => setMovie(data))
-      .catch(error=> setError(error.message))
+  function onSearchClick(searchQuery) {
+    if (query.toLowerCase() === searchQuery.toLowerCase()) return;
+    setQuery(searchQuery);
+    setMovies([]);
   }
 
   function onPageClick(pageNum) {
@@ -68,22 +53,19 @@ export default function MoviesPage() {
     setPage(prevPage => prevPage + 1);
   }
 
-
   return (
     <>
       <Searchbar onSearchClick={onSearchClick} />
       {status === 'pending' && <Loader />}
       {status === 'rejected' && <h2>Error getting information from server: {error}</h2>}
-      {status === 'resolved' && movies.length > 0 && isObjectEmpty(movie) && <MoviesGallery
+      {status === 'resolved' && movies.length > 0 && <MoviesGallery
         movies={movies}
-        handleClick={onMovieClick}
         page={page}
         pageCount={pageCount}
         onPageClick={onPageClick}
         onPrevPageClick={onPrevPageClick}
         onNextPageClick={onNextPageClick}
       />}
-      {!isObjectEmpty(movie) && <MovieDetails {...movie} errorHandling={errorHandling} />}
     </>
   );
 }

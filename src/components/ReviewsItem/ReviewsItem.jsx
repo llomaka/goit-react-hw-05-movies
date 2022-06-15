@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import styles from './MovieReviewsItem.module.css';
+import styles from './ReviewsItem.module.css';
 
-export default function MovieReviewsItem({ author, content, created_at, updated_at }) {
+export default function ReviewsItem({ author, content, created_at, updated_at }) {
   const createdDate = new Date(created_at);
   const modifiedDate = new Date(updated_at);
   return (
@@ -13,7 +13,7 @@ export default function MovieReviewsItem({ author, content, created_at, updated_
   );
 }
 
-MovieReviewsItem.propTypes = {
+ReviewsItem.propTypes = {
   author: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   created_at: PropTypes.string.isRequired,

@@ -10,8 +10,8 @@ export default function NavigationBar() {
       <Container>
         <div className={styles.navbar}>
           <nav className={styles.nav}>
-            <NavLink to='/goit-react-hw-05-movies/' className={({ isActive }) => isActive ? styles.orange : styles.blue}>Home</NavLink>
-            <NavLink to='/goit-react-hw-05-movies/movies' className={({ isActive }) => isActive ? styles.orange : styles.blue}>Movies</NavLink>
+            <NavLink to='/' className={({ isActive }) => isActive ? styles.orange : styles.blue}>Home</NavLink>
+            <NavLink to='/movies' className={({ isActive }) => isActive ? styles.orange : styles.blue}>Movies</NavLink>
           </nav>
           <a className={styles.link} href='https://www.themoviedb.org/' target='_blank' rel='noreferrer noopener nofollow'>
             <TmdbLogo />

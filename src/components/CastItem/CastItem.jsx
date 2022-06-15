@@ -3,9 +3,9 @@ import empty_picture from './no-image.svg';
 import { RemoveScroll } from 'react-remove-scroll';
 import Modal from 'components/Modal';
 import useModal from '../../hooks/useModal';
-import styles from './MovieCastItem.module.css';
+import styles from './CastItem.module.css';
 
-export default function MovieCastItem({ id, character, name, profile_path }) {
+export default function CastItem({ id, character, name, profile_path }) {
   const { posterPath, altCaption, closeModal, selectImage } = useModal();
 
   return (
@@ -30,7 +30,7 @@ export default function MovieCastItem({ id, character, name, profile_path }) {
   );
 }
 
-MovieCastItem.propTypes = {
+CastItem.propTypes = {
   id: PropTypes.number.isRequired,
   character: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,

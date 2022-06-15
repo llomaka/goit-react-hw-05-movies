@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
-import { fetchTrendingMovies, fetchMovieById } from 'service/api';
+import { fetchTrendingMovies } from 'service/api';
 import { toast } from 'react-toastify';
 import MoviesGallery from 'components/MoviesGallery';
 import Loader from 'components/Loader';
-import MovieDetails from 'components/MovieDetails';
-import isObjectEmpty from 'helpers/isObjectEmpty';
 
 export default function HomePage() {
   const [status, setStatus] = useState('idle');
   const [movies, setMovies] = useState([]);
-  const [movie, setMovie] = useState({});
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
@@ -33,17 +30,6 @@ export default function HomePage() {
       });
   }, [page]);
 
-  function errorHandling(error) {
-    setError(error.message);
-    setStatus('rejected');
-  }
-
-  function trendingMovieClick(id) {
-    fetchMovieById(id)
-      .then(data => setMovie(data))
-      .catch(error=> setError(error.message))
-  }
-
   function onPageClick(pageNum) {
     setPage(pageNum);
   }
@@ -60,16 +46,14 @@ export default function HomePage() {
     <>
       {status === 'pending' && <Loader />}
       {status === 'rejected' && <h2>Error getting information from server: {error}</h2>}
-      {status === 'resolved' && movies.length > 0 && isObjectEmpty(movie) && <MoviesGallery
+      {status === 'resolved' && movies.length > 0 && <MoviesGallery
         movies={movies}
-        handleClick={trendingMovieClick}
         page={page}
         pageCount={pageCount}
         onPageClick={onPageClick}
         onPrevPageClick={onPrevPageClick}
         onNextPageClick={onNextPageClick}
       />}
-      {!isObjectEmpty(movie) && <MovieDetails {...movie} errorHandling={errorHandling} />}
     </>
   );
 }

@@ -1,7 +1,6 @@
 .list {
   padding: 20px 0 20px 40px;
   list-style-type: square;
-  text-decoration: underline;
 }
 
 .item {
@@ -13,6 +12,11 @@
 .item:hover {
   color: #BE681F;
   cursor: pointer;
+}
+
+.link {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .pagination_list {
