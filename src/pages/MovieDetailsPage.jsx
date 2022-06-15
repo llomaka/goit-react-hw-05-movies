@@ -1,12 +1,10 @@
 import emptyPoster from './no-poster.svg';
 import { fetchMovieById } from 'service/api';
 import { useState, useEffect } from 'react';
-import Cast from 'components/Cast';
-import Reviews from 'components/Reviews';
 import { RemoveScroll } from 'react-remove-scroll';
 import Modal from 'components/Modal';
 import useModal from '../hooks/useModal';
-import { Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, Link, useNavigate, useParams } from 'react-router-dom';
 import styles from './MovieDetailsPage.module.css';
 import Loader from 'components/Loader';
 
@@ -33,7 +31,8 @@ export default function MovieDetailsPage() {
   return (
     < section className={styles.section} >
       {loader && <Loader />}
-      {movie && (<><button type='button' onClick={goBackNavigation}>Go back</button>
+      {error && <p>Something went wrong. Error message: {error.message}.</p>}
+      {movie && (<><button className={styles.button} type='button' onClick={goBackNavigation}>Go back</button>
         <div className={styles.card}>
           <img
             className={styles.image}
@@ -58,18 +57,14 @@ export default function MovieDetailsPage() {
             <li className={styles.item}><Link to={'reviews'}>Reviews</Link></li>
           </ul>
         </div></>)}
-      <Routes>
-        <Route path={'cast'} element={<Cast />} />
-        <Route path={'reviews'} element={<Reviews />} />
-      </Routes>
-  {posterPath && movie.poster_path && <RemoveScroll>
-      <Modal
-        posterPath={posterPath}
-        altCaption={altCaption}
-        closeModal={closeModal}
-      />
-    </RemoveScroll>
-  }
+      <Outlet />
+      {posterPath && movie.poster_path && <RemoveScroll>
+        <Modal
+          posterPath={posterPath}
+          altCaption={altCaption}
+          closeModal={closeModal}
+        />
+      </RemoveScroll>}
     </section >
   );
 }
