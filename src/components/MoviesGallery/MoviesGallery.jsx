@@ -5,7 +5,7 @@ import styles from './MoviesGallery.module.css';
 
 export default function MoviesGallery({ movies, page, pageCount, onPageClick, onPrevPageClick, onNextPageClick }) {
   function handlePageClick(event) {
-    console.log(`User requested page number ${event.selected}`);
+    onPageClick(event.selected + 1);
   }
 
   return (
