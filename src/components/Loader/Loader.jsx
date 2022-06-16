@@ -9,6 +9,7 @@ export default function Loader() {
       thickness='150'
       style={{
         display: 'block',
+        marginTop: '20',
         marginLeft: 'auto',
         marginRight: 'auto'
       }}

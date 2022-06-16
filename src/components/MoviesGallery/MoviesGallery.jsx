@@ -27,6 +27,7 @@ export default function MoviesGallery({ movies, page, pageCount, onPageClick, on
         nextLabel=">"
         onPageChange={handlePageClick}
         pageCount={pageCount}
+        forcePage={page-1}
         marginPagesDisplayed={2}
         previousLabel="<"
         renderOnZeroPageCount={null}

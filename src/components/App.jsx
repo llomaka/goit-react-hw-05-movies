@@ -25,7 +25,9 @@ export const App = () => {
             <Route path='cast' element={<Cast />} />
             <Route path='reviews' element={<Reviews />} />
           </Route>
-          <Route path='/redirect' element={<Navigate to='/' />} />
+          {/* <Route path='/redirect' element={<Navigate to='/' />} /> */}
+          <Route path="*" element={<Navigate to="/" replace />}
+    />
         </Routes>
       </Container>
       <ToastContainer />
