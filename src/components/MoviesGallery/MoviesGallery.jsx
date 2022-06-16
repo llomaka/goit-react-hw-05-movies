@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import styles from './MoviesGallery.module.css';
 
-export default function MoviesGallery({ movies, page, pageCount, onPageClick, onPrevPageClick, onNextPageClick }) {
+export default function MoviesGallery({ movies, page, pageCount, onPageClick }) {
   function handlePageClick(event) {
     onPageClick(event.selected + 1);
   }
@@ -51,6 +51,4 @@ MoviesGallery.propTypes = {
   page: PropTypes.number.isRequired,
   pageCount: PropTypes.number.isRequired,
   onPageClick: PropTypes.func.isRequired,
-  onPrevPageClick: PropTypes.func.isRequired,
-  onNextPageClick: PropTypes.func.isRequired,
 };

@@ -34,14 +34,6 @@ export default function HomePage() {
     setPage(pageNum);
   }
 
-  function onPrevPageClick() {
-    setPage(prevPage => prevPage - 1);
-  }
-
-  function onNextPageClick() {
-    setPage(prevPage => prevPage + 1);
-  }
-
   return (
     <>
       {status === 'pending' && <Loader />}
@@ -51,8 +43,6 @@ export default function HomePage() {
         page={page}
         pageCount={pageCount}
         onPageClick={onPageClick}
-        onPrevPageClick={onPrevPageClick}
-        onNextPageClick={onNextPageClick}
       />}
     </>
   );

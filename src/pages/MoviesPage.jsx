@@ -17,7 +17,7 @@ export default function MoviesPage() {
   useEffect(() => {
     if (!searchParams.get('query')) return;
     setStatus('pending');
-    fetchMoviesByQuery(searchParams.get('query'))
+    fetchMoviesByQuery(searchParams.get('query'), page)
       .then(data => {
         if (data.total_results === 0) {
             setError('Found 0 movies! Please, change search query.');
@@ -34,7 +34,7 @@ export default function MoviesPage() {
           setError(error.message);
           setStatus('rejected');
         });
-    }, [searchParams]);
+    }, [searchParams, page]);
 
   function onSearchClick(searchQuery) {
     if (searchParams.get('query')) {
@@ -48,14 +48,6 @@ export default function MoviesPage() {
     setPage(pageNum);
   }
 
-  function onPrevPageClick() {
-    setPage(prevPage => prevPage - 1);
-  }
-
-  function onNextPageClick() {
-    setPage(prevPage => prevPage + 1);
-  }
-
   return (
     <>
       <Searchbar onSearchClick={onSearchClick} />
@@ -66,8 +58,6 @@ export default function MoviesPage() {
         page={page}
         pageCount={pageCount}
         onPageClick={onPageClick}
-        onPrevPageClick={onPrevPageClick}
-        onNextPageClick={onNextPageClick}
       />}
     </>
   );
