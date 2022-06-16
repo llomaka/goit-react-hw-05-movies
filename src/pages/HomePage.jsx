@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import MoviesGallery from 'components/MoviesGallery';
 import Loader from 'components/Loader';
 
-export default function HomePage() {
+export function HomePage() {
   const [status, setStatus] = useState('idle');
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);

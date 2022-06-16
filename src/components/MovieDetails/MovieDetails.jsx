@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 import Modal from 'components/Modal';
 import useModal from '../../hooks/useModal';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Loader from 'components/Loader';
 import styles from './MovieDetails.module.css';
 
@@ -14,6 +14,7 @@ export default function MovieDetails() {
   const [error, setError] = useState(null);
   const [loader, setLoader] = useState(false);
   const { posterPath, altCaption, closeModal, selectImage } = useModal();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoader(true);
@@ -27,7 +28,8 @@ export default function MovieDetails() {
     < section className={styles.section} >
       {loader && <Loader />}
       {error && <p>Something went wrong. Error message: {error.message}.</p>}
-      {movie && (<>
+      {movie && (<><button className={styles.button} type='button' onClick={()=>navigate(-1)}>Go Back</button>
+
         <div className={styles.card}>
           <img
             className={styles.image}
@@ -48,8 +50,8 @@ export default function MovieDetails() {
         <div className={styles.aside}>
           <h2 className={styles.aside_title}>Additional information</h2>
           <ul className={styles.list}>
-            <li className={styles.item}><Link to={'cast'}>Cast</Link></li>
-            <li className={styles.item}><Link to={'reviews'}>Reviews</Link></li>
+            <li className={styles.item}><Link to={'cast'} replace={true}>Cast</Link></li>
+            <li className={styles.item}><Link to={'reviews'} replace={true}>Reviews</Link></li>
           </ul>
         </div></>)}
       {posterPath && movie.poster_path && <RemoveScroll>

@@ -20,7 +20,7 @@ export default function Cast() {
   return (
     <>
       {error && <p>Something went wrong. Error message: {error}.</p>}
-      {cast.length === 0 && <p>No cast available at this time.</p>}
+      {cast.length === 0 && <p className={styles.text}>No cast available at this time.</p>}
       {cast.length > 0 && <ul className={styles.list}>
         {cast.map(actor => (
           <li

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import Loader from 'components/Loader';
 import MoviesGallery from 'components/MoviesGallery';
 
-export default function MoviesPage() {
+export function MoviesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [status, setStatus] = useState('idle');
   const [movies, setMovies] = useState([]);

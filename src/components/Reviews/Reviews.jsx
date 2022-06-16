@@ -20,7 +20,7 @@ export default function Reviews() {
   return (
     <>
       {error && <p>Something went wrong. Error message: {error}.</p>}
-      {reviews.total_results === 0 && <p>No reviews available at this time.</p> }
+      {reviews.total_results === 0 && <p className={styles.text}>No reviews available at this time.</p> }
       {reviews.total_results > 0 && <ol className={styles.list}>
         {reviews.results.map(review => (
           <li key={review.id} className={styles.item}>
