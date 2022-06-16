@@ -51,3 +51,8 @@
 .pagination_active_item:hover {
   background-color: #774113;
 }
+
+.disabled_item, .disabled_item:hover {
+  background-color: #AFDAFE;
+  cursor: not-allowed;
+}

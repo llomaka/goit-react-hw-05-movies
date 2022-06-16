@@ -34,8 +34,10 @@ export default function MoviesGallery({ movies, page, pageCount, onPageClick }) 
         containerClassName={styles.pagination_list}
         pageClassName={styles.pagination_item}
         activeClassName={styles.pagination_active_item}
+        breakClassName={styles.pagination_item}
         previousClassName={styles.pagination_item}
         nextClassName={styles.pagination_item}
+        disabledClassName={styles.disabled_item}
       />}
     </>
   );
