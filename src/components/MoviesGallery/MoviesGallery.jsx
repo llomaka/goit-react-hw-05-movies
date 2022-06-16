@@ -47,4 +47,9 @@ MoviesGallery.propTypes = {
       title: PropTypes.string.isRequired,
     })
   ),
+  page: PropTypes.number.isRequired,
+  pageCount: PropTypes.number.isRequired,
+  onPageClick: PropTypes.func.isRequired,
+  onPrevPageClick: PropTypes.func.isRequired,
+  onNextPageClick: PropTypes.func.isRequired,
 };

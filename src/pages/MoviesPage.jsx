@@ -1,12 +1,13 @@
 import Searchbar from 'components/Searchbar';
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { fetchMoviesByQuery } from 'service/api';
 import { toast } from 'react-toastify';
 import Loader from 'components/Loader';
 import MoviesGallery from 'components/MoviesGallery';
 
 export default function MoviesPage() {
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
   const [status, setStatus] = useState('idle');
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
@@ -14,9 +15,9 @@ export default function MoviesPage() {
   const [pageCount, setPageCount] = useState(1);
 
   useEffect(() => {
-    if (!query) return;
+    if (!searchParams.get('query')) return;
     setStatus('pending');
-    fetchMoviesByQuery(query)
+    fetchMoviesByQuery(searchParams.get('query'))
       .then(data => {
         if (data.total_results === 0) {
             setError('Found 0 movies! Please, change search query.');
@@ -33,12 +34,14 @@ export default function MoviesPage() {
           setError(error.message);
           setStatus('rejected');
         });
-    }, [query]);
+    }, [searchParams]);
 
   function onSearchClick(searchQuery) {
-    if (query.toLowerCase() === searchQuery.toLowerCase()) return;
-    setQuery(searchQuery);
+    if (searchParams.get('query')) {
+      if (searchParams.get('query').toLowerCase() === searchQuery.toLowerCase()) return;
+    }
     setMovies([]);
+    setSearchParams({ query: searchQuery });
   }
 
   function onPageClick(pageNum) {
