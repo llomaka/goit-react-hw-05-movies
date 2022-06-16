@@ -5,8 +5,8 @@ import { RemoveScroll } from 'react-remove-scroll';
 import Modal from 'components/Modal';
 import useModal from '../../hooks/useModal';
 import { Link, useParams } from 'react-router-dom';
-import styles from './MovieDetails.module.css';
 import Loader from 'components/Loader';
+import styles from './MovieDetails.module.css';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
