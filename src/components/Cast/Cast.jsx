@@ -2,6 +2,7 @@ import MovieCastItem from 'components/CastItem';
 import { fetchCreditsByMovieId } from 'service/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Notification from 'components/Notification';
 import styles from './Cast.module.css';
 
 export default function Cast() {
@@ -19,8 +20,8 @@ export default function Cast() {
 
   return (
     <>
-      {error && <p>Something went wrong. Error message: {error}.</p>}
-      {cast.length === 0 && <p className={styles.text}>No cast available at this time.</p>}
+      {error && <Notification text={`Something went wrong. Error message: ${error}.`} />}
+      {cast.length === 0 && <Notification text={'No cast available at this time.'} />}
       {cast.length > 0 && <ul className={styles.list}>
         {cast.map(actor => (
           <li

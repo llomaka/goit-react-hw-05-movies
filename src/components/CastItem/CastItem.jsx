@@ -5,7 +5,7 @@ import Modal from 'components/Modal';
 import useModal from '../../hooks/useModal';
 import styles from './CastItem.module.css';
 
-export default function CastItem({ id, character, name, profile_path }) {
+export default function CastItem({ character, name, profile_path }) {
   const { posterPath, altCaption, closeModal, selectImage } = useModal();
 
   return (
@@ -31,7 +31,6 @@ export default function CastItem({ id, character, name, profile_path }) {
 }
 
 CastItem.propTypes = {
-  id: PropTypes.number.isRequired,
   character: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   profile_path: PropTypes.string,

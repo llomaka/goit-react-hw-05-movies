@@ -5,6 +5,7 @@ import { fetchMoviesByQuery } from 'service/api';
 import { toast } from 'react-toastify';
 import Loader from 'components/Loader';
 import MoviesGallery from 'components/MoviesGallery';
+import Notification from 'components/Notification';
 
 export function MoviesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -57,7 +58,7 @@ export function MoviesPage() {
     <>
       <Searchbar onSearchClick={onSearchClick} />
       {status === 'pending' && <Loader />}
-      {status === 'rejected' && <h2>Error getting information from server: {error}</h2>}
+      {status === 'rejected' && <Notification text={`Error getting information from server: ${error}`} />}
       {status === 'resolved' && movies.length > 0 && <MoviesGallery
         movies={movies}
         page={Number(searchParams.get('page'))}

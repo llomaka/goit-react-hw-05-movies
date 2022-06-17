@@ -3,6 +3,7 @@ import { fetchTrendingMovies } from 'service/api';
 import { toast } from 'react-toastify';
 import MoviesGallery from 'components/MoviesGallery';
 import Loader from 'components/Loader';
+import Notification from 'components/Notification';
 
 export function HomePage() {
   const [status, setStatus] = useState('idle');
@@ -30,10 +31,8 @@ export function HomePage() {
   return (
     <>
       {status === 'pending' && <Loader />}
-      {status === 'rejected' && <h2>Error getting information from server: {error}</h2>}
-      {status === 'resolved' && movies.length > 0 && <MoviesGallery
-        movies={movies}
-      />}
+      {status === 'rejected' && <Notification text={`Error getting information from server: ${error}`}/>}
+      {status === 'resolved' && movies.length > 0 && <MoviesGallery movies={movies} />}
     </>
   );
 }

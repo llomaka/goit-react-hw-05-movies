@@ -1,3 +1,4 @@
+import Notification from 'components/Notification';
 import MovieReviewsItem from 'components/ReviewsItem';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -19,8 +20,8 @@ export default function Reviews() {
 
   return (
     <>
-      {error && <p>Something went wrong. Error message: {error}.</p>}
-      {reviews.total_results === 0 && <p className={styles.text}>No reviews available at this time.</p> }
+      {error && <Notification text={`Something went wrong. Error message: ${error}.`} />}
+      {reviews.total_results === 0 && <Notification text={'No reviews available at this time.'} />}
       {reviews.total_results > 0 && <ol className={styles.list}>
         {reviews.results.map(review => (
           <li key={review.id} className={styles.item}>

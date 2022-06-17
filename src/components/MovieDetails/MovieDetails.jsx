@@ -7,6 +7,7 @@ import useModal from '../../hooks/useModal';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Loader from 'components/Loader';
 import styles from './MovieDetails.module.css';
+import Notification from 'components/Notification';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
@@ -28,9 +29,9 @@ export default function MovieDetails() {
   return (
     < section className={styles.section} >
       {loader && <Loader />}
-      {error && <p>Something went wrong. Error message: {error.message}.</p>}
-      {movie && (<>{isPreviousPageExists > 0 && (<button className={styles.button} type='button' onClick={()=>navigate(-1)}>Go Back</button>)}
-
+      {error && <Notification text={`Something went wrong. Error message: ${error.message}.`} />}
+      {movie && (<>
+        {isPreviousPageExists > 0 && (<button className={styles.button} type='button' onClick={() => navigate(-1)}>Go Back</button>)}
         <div className={styles.card}>
           <img
             className={styles.image}
@@ -54,7 +55,8 @@ export default function MovieDetails() {
             <li className={styles.item}><Link to={'cast'} replace={true}>Cast</Link></li>
             <li className={styles.item}><Link to={'reviews'} replace={true}>Reviews</Link></li>
           </ul>
-        </div></>)}
+        </div>
+      </>)}
       {posterPath && movie.poster_path && <RemoveScroll>
         <Modal
           posterPath={posterPath}
