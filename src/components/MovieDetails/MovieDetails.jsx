@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 import Modal from 'components/Modal';
 import useModal from '../../hooks/useModal';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Loader from 'components/Loader';
-import styles from './MovieDetails.module.css';
 import Notification from 'components/Notification';
+import BackButton from 'components/BackButton';
+import styles from './MovieDetails.module.css';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
@@ -15,8 +16,6 @@ export default function MovieDetails() {
   const [error, setError] = useState(null);
   const [loader, setLoader] = useState(false);
   const { posterPath, altCaption, closeModal, selectImage } = useModal();
-  const navigate = useNavigate();
-  const isPreviousPageExists = window.history.state.idx;
 
   useEffect(() => {
     setLoader(true);
@@ -30,8 +29,8 @@ export default function MovieDetails() {
     < section className={styles.section} >
       {loader && <Loader />}
       {error && <Notification text={`Something went wrong. Error message: ${error.message}.`} />}
+      {!loader && (<BackButton />)}
       {movie && (<>
-        {isPreviousPageExists > 0 && (<button className={styles.button} type='button' onClick={() => navigate(-1)}>Go Back</button>)}
         <div className={styles.card}>
           <img
             className={styles.image}
