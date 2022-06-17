@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import MovieDetails from 'components/MovieDetails';
 
 
-export function MovieDetailsPage() {
+export default function MovieDetailsPage() {
   return (
     <>
       <MovieDetails />
