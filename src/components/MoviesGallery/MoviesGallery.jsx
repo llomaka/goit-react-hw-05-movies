@@ -50,7 +50,7 @@ MoviesGallery.propTypes = {
       title: PropTypes.string.isRequired,
     })
   ),
-  page: PropTypes.number.isRequired,
-  pageCount: PropTypes.number.isRequired,
-  onPageClick: PropTypes.func.isRequired,
+  page: PropTypes.number,
+  pageCount: PropTypes.number,
+  onPageClick: PropTypes.func,
 };

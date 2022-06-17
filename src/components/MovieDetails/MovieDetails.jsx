@@ -15,6 +15,7 @@ export default function MovieDetails() {
   const [loader, setLoader] = useState(false);
   const { posterPath, altCaption, closeModal, selectImage } = useModal();
   const navigate = useNavigate();
+  const isPreviousPageExists = window.history.state.idx;
 
   useEffect(() => {
     setLoader(true);
@@ -28,7 +29,7 @@ export default function MovieDetails() {
     < section className={styles.section} >
       {loader && <Loader />}
       {error && <p>Something went wrong. Error message: {error.message}.</p>}
-      {movie && (<><button className={styles.button} type='button' onClick={()=>navigate(-1)}>Go Back</button>
+      {movie && (<>{isPreviousPageExists > 0 && (<button className={styles.button} type='button' onClick={()=>navigate(-1)}>Go Back</button>)}
 
         <div className={styles.card}>
           <img
