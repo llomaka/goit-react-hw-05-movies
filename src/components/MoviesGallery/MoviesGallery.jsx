@@ -1,11 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import styles from './MoviesGallery.module.css';
 
 export default function MoviesGallery({ movies, page, pageCount, onPageClick }) {
-  const location = useLocation();
-
   function handlePageClick(event) {
     onPageClick(event.selected + 1);
   }
@@ -18,7 +16,7 @@ export default function MoviesGallery({ movies, page, pageCount, onPageClick }) 
           key={id}
           className={styles.item}
         >
-          <Link to={`/movies/${id}`} state={{ 'from': location }} className={styles.link}>
+          <Link to={`/movies/${id}`} className={styles.link}>
             {title}
           </Link>
         </li>)

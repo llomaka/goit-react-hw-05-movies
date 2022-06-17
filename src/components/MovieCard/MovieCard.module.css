@@ -1,0 +1,43 @@
+.card {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.16);
+}
+
+.title {
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.image {
+  max-width: 250px;
+  cursor: pointer;
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.aside {
+  padding: 20px 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.16);
+}
+
+.aside_title {
+  font-size: 20px;
+}
+
+.list {
+  padding-left: 50px;
+  line-height: 1.5;
+  text-decoration: underline;
+}
+
+.item:hover {
+  color: #BE681F;
+  cursor: pointer;
+}
