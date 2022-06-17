@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import emptyPoster from './no-poster.svg';
+import PropTypes from 'prop-types';
 import styles from './MovieCard.module.css';
 
 export default function MovieCard({ movie, selectImage }) {
@@ -20,7 +21,7 @@ export default function MovieCard({ movie, selectImage }) {
           <h3>Overview</h3>
           <p>{overview ? overview : 'No Overview Available'}</p>
           <h3>Genres</h3>
-          <p>{genres ? genres.map(genre => genre.name).join(', ') : 'No Genres Available'}</p>
+          <p>{genres.length > 0 ? genres.map(genre => genre.name).join(', ') : 'No Genres Available'}</p>
         </div>
       </div>
       <div className={styles.aside}>
@@ -33,3 +34,20 @@ export default function MovieCard({ movie, selectImage }) {
     </>
   );
 }
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+      poster_path: PropTypes.string,
+      title: PropTypes.string.isRequired,
+      release_date: PropTypes.string.isRequired,
+      vote_average: PropTypes.number.isRequired,
+      overview: PropTypes.string.isRequired,
+      genres: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired
+        })
+      ),
+    }),
+  selectImage: PropTypes.func.isRequired,
+};

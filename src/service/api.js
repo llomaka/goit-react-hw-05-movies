@@ -16,10 +16,10 @@ export async function fetchMovieById(movie_id, language = 'en-US') {
   const { data } = await axios(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=${language}`);
   return data;
 }
-// Запит акторського складу та знімальної групи фільму за ідентифікатором
+// Запит акторського складу фільму за ідентифікатором
 export async function fetchCreditsByMovieId(movie_id, language = 'en-US') {
   const { data } = await axios(`https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_KEY}&language=${language}`);
-  return data;
+  return data.cast;
 }
 // Запит рецензії фільму за ідентифікатором
 export async function fetchReviewsByMovieId(movie_id, page = 1, language = 'en-US') {

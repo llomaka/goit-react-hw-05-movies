@@ -1,28 +1,17 @@
 import MovieCastItem from 'components/CastItem';
-import { fetchCreditsByMovieId } from 'service/api';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import Notification from 'components/Notification';
+import Loader from 'components/Loader';
+import useFetchCast from 'hooks/useFetchCast';
 import styles from './Cast.module.css';
 
 export default function Cast() {
-  const { movieId } = useParams();
-  const [cast, setCast] = useState({});
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetchCreditsByMovieId(movieId)
-      .then(data => {
-        setCast(data.cast);
-        })
-      .catch(error => setError(error.message))
-  }, [movieId]);
-
+  const { cast, error, isLoading } = useFetchCast();
   return (
     <>
+      {isLoading && <Loader />}
       {error && <Notification text={`Something went wrong. Error message: ${error}.`} />}
       {cast.length === 0 && <Notification text={'No cast available at this time.'} />}
-      {cast.length > 0 && <ul className={styles.list}>
+      {cast.length > 0 && (<ul className={styles.list}>
         {cast.map(actor => (
           <li
             key={actor.id}
@@ -31,7 +20,7 @@ export default function Cast() {
             <MovieCastItem {...actor} />
           </li>
         ))}
-      </ul>}
+      </ul>)}
     </>
   );
 }

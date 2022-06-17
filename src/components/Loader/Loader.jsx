@@ -4,7 +4,7 @@ export default function Loader() {
   return (
     <SpinnerDotted
       enabled={true}
-      size='100'
+      size='80'
       color='#490D9A'
       thickness='150'
       style={{
