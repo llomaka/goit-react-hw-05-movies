@@ -11,7 +11,7 @@ export default function useFetchMovie() {
   const isPrevPage = window.history.state.idx;
 
   useEffect(() => {
-    if (isNaN(movieId)) {
+    if (isNaN(movieId) || movieId.length > 6) {
       navigate('/');
     } else {
       setIsLoading(true);
